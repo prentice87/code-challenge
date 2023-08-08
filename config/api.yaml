@@ -1,0 +1,2 @@
+parameters:
+  api_url: 'https://wizard-world-api.herokuapp.com'
