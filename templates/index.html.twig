@@ -8,8 +8,10 @@
 <form method="POST" action="{{ path('houses') }}">
 
     {% for HouseTrait in traits %}
-        <input type="checkbox" name="traits[{{ loop.index }}]" value="{{ HouseTrait.Id().asString() }}">
-        <label for="traits[{{ loop.index }}]">{{ HouseTrait.Name().asString() }}</label>
+        <label>
+            <input type="checkbox" name="traits[]" value="{{ HouseTrait.Id().asString() }}">
+            &nbsp;&nbsp;{{ HouseTrait.Name().asString() }}
+        </label>
         <br>
     {% endfor %}
     <br>
