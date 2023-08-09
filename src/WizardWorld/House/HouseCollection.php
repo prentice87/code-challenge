@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\WizardWorld\House;
 
+use App\WizardWorld\Common\UuidCollection;
 use Exception;
 
 class HouseCollection
@@ -40,5 +41,18 @@ class HouseCollection
         }
 
         return TraitCollection::createFromArray($traits);
+    }
+
+    public function getFilteredByTraitsUuidCollection(UuidCollection $uuidCollection): self
+    {
+        $collection = new self();
+
+        foreach ($this->houses as $house)
+        {
+            if($house->getTraitCollection()->hasTraitsFromUserInput($uuidCollection))
+                $collection->add($house);
+        }
+
+        return $collection;
     }
 }
