@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wizard World - Houses</title>
+    <style>
+        #traitlist {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+        #traitlist li {
+            display: inline;
+        }
+        #traitlist li.selected {
+            font-weight: bold;
+        }
+        #traitlist li:after {
+            content: ", ";
+        }
+        #traitlist li:last-child:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        #traitlist:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+<h1>Your Hogwarts Houses based on your selected Houses</h1>
+
+{% for house in houses.all() %}
+    <h2>{{ house.Name().asString() }}</h2>
+    <h3>Traits</h3>
+    <ul id="traitlist">
+        {% for trait in house.TraitCollection.all() %}
+            <li{% if selectedTraits.has(trait.Id) == true %} class="selected"{% endif %}>
+                {{ trait.Name.asString() }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('house', { 'id': house.Id.asString() }) }}">More Details</a>
+    <hr>
+{% endfor %}
+
+</body>
+</html>

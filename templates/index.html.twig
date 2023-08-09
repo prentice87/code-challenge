@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find your Hogwarts House by Traits</title>
+</head>
+<body>
+<h1>Find your Hogwarts House by Traits</h1>
+<form method="POST" action="{{ path('houses') }}">
+
+    {% for HouseTrait in traits %}
+        <input type="checkbox" name="traits[]" value="{{ HouseTrait.Id().asString() }}">
+        &nbsp;&nbsp;
+        {{ HouseTrait.Name().asString() }}<br>
+    {% endfor %}
+    <br>
+    <button type="submit">See your matching Houses</button>
+</form>
+</body>
+</html>
