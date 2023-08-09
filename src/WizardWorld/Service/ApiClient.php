@@ -65,8 +65,31 @@ class ApiClient
         return $houseCollection;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws Exception
+     */
     public function fetchHouse(Uuid $uuid): House
     {
-        return new House();
+        $apiUrl = $this->params->get('api_url') . '/Houses/' . $uuid->asString();
+        $response = $this->httpClient->request('GET', $apiUrl);
+        $house = $response->toArray();
+
+        return House::create(
+            $house['id'],
+            $house['name'],
+            $house['houseColours'],
+            $house['founder'],
+            $house['animal'],
+            $house['element'],
+            $house['ghost'],
+            $house['commonRoom'],
+            $house['heads'],
+            $house['traits']
+        );
     }
 }
