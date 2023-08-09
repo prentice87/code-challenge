@@ -80,7 +80,7 @@ class House
         );
     }
 
-    public function getUuid(): Uuid
+    public function getId(): Uuid
     {
         return $this->uuid;
     }
