@@ -3,3 +3,17 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+index:
+    path: /
+    controller: App\Controller\ApiController::index
+
+houses:
+    path: /houses
+    controller: App\Controller\ApiController::houses
+    condition:  "context.getMethod() in ['POST']"
+
+house:
+    path: /house/{id}
+    controller: App\Controller\ApiController::house
+    condition:  "params['id'] != ''"
