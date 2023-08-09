@@ -6,6 +6,7 @@ namespace App\WizardWorld\Service;
 use App\WizardWorld\Common\ValueObject\Uuid;
 use App\WizardWorld\House\House;
 use App\WizardWorld\House\HouseCollection;
+use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -31,6 +32,7 @@ class ApiClient
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
+     * @throws Exception
      */
     public function fetchHouses(): HouseCollection
     {
