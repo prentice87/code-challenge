@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wizard World - House: {{ house.Name().asString() }}</title>
+    <style>
+        #traitlist {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+        #traitlist li {
+            display: inline;
+        }
+        #traitlist li.selected {
+            font-weight: bold;
+        }
+        #traitlist li:after {
+            content: ", ";
+        }
+        #traitlist li:last-child:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        #traitlist:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        table, tr, td{
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+<button onclick="history.back()">Go Back</button>
+
+<h1>{{ house.Name().asString() }}</h1>
+<table>
+    <tr>
+        <td>House Colour:</td>
+        <td>{{ house.Colour().asString() }}</td>
+    </tr>
+    <tr>
+        <td>Founder:</td>
+        <td>{{ house.Founder().asString() }}</td>
+    </tr>
+    <tr>
+        <td>Animal:</td>
+        <td>{{ house.Animal().asString() }}</td>
+    </tr>
+    <tr>
+        <td>Element:</td>
+        <td>{{ house.Element().asString() }}</td>
+    </tr>
+    <tr>
+        <td>Ghost:</td>
+        <td>{{ house.Ghost().asString() }}</td>
+    </tr>
+    <tr>
+        <td>Common Room:</td>
+        <td>{{ house.CommonRoom().asString() }}</td>
+    </tr>
+</table>
+
+<h2>Heads of House</h2>
+<ul id="traitlist">
+{% for head in house.HeadCollection.all() %}
+    <li>
+        {{ head.FirstName.asString }} {{ head.LastName.asString }}
+    </li>
+{% endfor %}
+</ul>
+
+<h2>Traits</h2>
+<ul id="traitlist">
+    {% for trait in house.TraitCollection.all() %}
+        <li>
+            {{ trait.Name.asString() }}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

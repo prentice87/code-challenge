@@ -66,6 +66,6 @@ class ApiController extends AbstractController
 
         $house = $this->apiClient->fetchHouse($uuid);
 
-        return $this->render('house.html.twig',[]);
+        return $this->render('house.html.twig',['house' => $house]);
     }
 }
