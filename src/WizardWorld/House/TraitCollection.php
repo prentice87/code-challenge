@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\WizardWorld\House;
 
+use App\WizardWorld\Common\UuidCollection;
 use Exception;
 
 class TraitCollection
@@ -60,5 +61,16 @@ class TraitCollection
     public function all(): array
     {
         return $this->traits;
+    }
+
+    public function hasTraitsFromUserInput(UuidCollection $uuidCollection): bool
+    {
+        foreach ($this->traits as $trait)
+        {
+            if($uuidCollection->has($trait->getId()))
+                return true;
+        }
+
+        return false;
     }
 }
