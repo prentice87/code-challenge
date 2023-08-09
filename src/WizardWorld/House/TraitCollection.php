@@ -32,7 +32,7 @@ class TraitCollection
     {
         foreach ($this->traits as $trait)
         {
-            if($trait->getName()->asString() == $item->getName()->asString())
+            if($trait->getId()->asString() == $item->getId()->asString())
                 throw new Exception('Trait is already in Collection');
         }
     }
