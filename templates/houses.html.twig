@@ -30,16 +30,20 @@
     </style>
 </head>
 <body>
+<button onclick="history.back()">Go Back</button>
+
 <h1>Your Hogwarts Houses based on your selected Houses</h1>
 
 {% for house in houses.all() %}
     <h2>{{ house.Name().asString() }}</h2>
-    <h3>Traits</h3>
+    <h3>Matching Traits</h3>
     <ul id="traitlist">
         {% for trait in house.TraitCollection.all() %}
-            <li{% if selectedTraits.has(trait.Id) == true %} class="selected"{% endif %}>
+            {% if selectedTraits.has(trait.Id) == true %}
+            <li class="selected">
                 {{ trait.Name.asString() }}
             </li>
+            {% endif %}
         {% endfor %}
     </ul>
     <a href="{{ path('house', { 'id': house.Id.asString() }) }}">More Details</a>
