@@ -9,8 +9,8 @@
 
     {% for HouseTrait in traits %}
         <input type="checkbox" name="traits[]" value="{{ HouseTrait.Id().asString() }}">
-        &nbsp;&nbsp;
-        {{ HouseTrait.Name().asString() }}<br>
+        <label for="traits[]">{{ HouseTrait.Name().asString() }}</label>
+        <br>
     {% endfor %}
     <br>
     <button type="submit">See your matching Houses</button>
