@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\WizardWorld\Service;
 
+use App\WizardWorld\Common\ValueObject\Uuid;
+use App\WizardWorld\House\House;
+use App\WizardWorld\House\HouseCollection;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -13,8 +16,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ApiClient
 {
-    private $httpClient;
-    private $params;
+    private HttpClientInterface $httpClient;
+    private ParameterBagInterface $params;
 
     public function __construct(HttpClientInterface $httpClient, ParameterBagInterface $params)
     {
@@ -29,17 +32,39 @@ class ApiClient
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function fetchHouses(): array
+    public function fetchHouses(): HouseCollection
     {
         $apiUrl = $this->params->get('api_url') . '/Houses';
 
         $response = $this->httpClient->request('GET', $apiUrl);
 
-        return $response->toArray();
+        $responseArray = $response->toArray();
+
+        $houseCollection = new HouseCollection();
+
+        foreach ($responseArray as $house)
+        {
+            $houseCollection->add(
+                House::create(
+                    $house['id'],
+                    $house['name'],
+                    $house['houseColours'],
+                    $house['founder'],
+                    $house['animal'],
+                    $house['element'],
+                    $house['ghost'],
+                    $house['commonRoom'],
+                    $house['heads'],
+                    $house['traits']
+                )
+            );
+        }
+
+        return $houseCollection;
     }
 
-    public function fetchHouse(Uuid $uuid): array
+    public function fetchHouse(Uuid $uuid): House
     {
-
+        return new House();
     }
 }
